@@ -49,8 +49,8 @@ export default {
     }
   },
   filters: {
-    uppercased () {
-
+    uppercased (str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
     }
   },
   computed: {
