@@ -10,11 +10,18 @@
             @tag="addCity"
             @select="select"
             @remove="remove" />
+    <div class="row justify-content-around pt-2 pb-2">
+      <b-spinner
+          class="position-absolute"
+          variant="primary"
+          type="grow"
+          v-if="processing" />
+    </div>
     <div class="row justify-content-around mt-4">
-        <widget v-for="city in list"
-            @unsubscribe="remove"
-            :key="city"
-            :city="city"/>
+      <widget v-for="city in list"
+          @unsubscribe="remove"
+          :key="city"
+          :city="city"/>
     </div>
   </div>
 </template>
@@ -57,9 +64,12 @@ export default {
     ]),
     async select (city) {
       try {
+        this.processing = true;
         await this[GET_WEATHER](city);
+        this.processing = false;
       } catch (e) {
         this.list = this.list.filter(item => item !== city);
+        this.processing = false;
         this.$bvToast.toast(e.response.statusText, {
           title: `Error ${e.response.status}`,
           variant: 'danger',
