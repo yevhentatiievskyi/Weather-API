@@ -6,6 +6,7 @@ const app = express();
 
 const WEATHER_API_URL = 'http://api.openweathermap.org/data/2.5/weather';
 const WEATHER_API_KEY = '839cf81f09a2b478e1d82492e77953de';
+const PORT = '3006';
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -18,13 +19,13 @@ async function getWeather (request, response) {
         APPID: WEATHER_API_KEY
       };
       const weather = await axios.get(WEATHER_API_URL, { params });
-      return response.json(weather.data);
+      response.status(200).json(weather.data);
     }
     catch (e) {
-      console.log(e.message);
+      response.status(e.response.status).json(e);
     }
 }
 
 app.use('/v1/weather/:city', getWeather);
-
-app.listen(3006);
+console.log(`Server started on port ${PORT}`);
+app.listen(PORT);

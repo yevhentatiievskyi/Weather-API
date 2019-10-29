@@ -6,32 +6,30 @@
         img-top
         tag="article"
         style="max-width: 20rem;"
-        class="mb-2">
+        class="mb-2 bg-muted">
           <b-card-text>
             <div class="d-flex justify-content-between mb-3">
+                <div class="bg-primary"><img :src="statistics.img"></div>
               <div class="text-primary h4">{{city}}</div>
-              <div class="font-weight-bold">{{statistics.temp}} &#8451; </div>
+              <div class="h4">{{statistics.temp}} &#8451;</div>
             </div>
-            <div class="d-flex justify-content-between">
+            <hr>
+            <div class="d-flex justify-content-between mb-3">
               <div>Humidity</div>
               <div>{{statistics.humidity}}</div>
             </div>
-            <hr>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mb-3">
               <div>Pressure</div>
               <div>{{statistics.pressure}}</div>
             </div>
-            <hr>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mb-3">
               <div>Cloudiness</div>
               <div>{{statistics.cloudiness}}</div>
             </div>
-            <hr>
-            <div class="d-flex justify-content-between">
+            <div class="d-flex justify-content-between mb-3">
               <div>Wind</div>
               <div>{{statistics.wind.speed}} (&nearr; {{statistics.wind.degree}})</div>
             </div>
-            <hr>
             <div class="d-flex justify-content-between">
               <div>Coordinates</div>
               <div class="text-success">[{{statistics.lat}}, {{statistics.lon}}]</div>
@@ -39,9 +37,9 @@
           </b-card-text>
 
           <div class="text-right mt-4">
-              <b-button variant="danger" @click="unsubscribe">
-                Unsubscribe
-              </b-button>
+            <b-button variant="danger" @click="unsubscribe">
+              Unsubscribe
+            </b-button>
           </div>
       </b-card>
     </div>
