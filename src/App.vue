@@ -56,9 +56,16 @@ export default {
       GET_WEATHER
     ]),
     async select (city) {
-      this.processing = true;
-      await this[GET_WEATHER](city);
-      this.processing = false;
+      try {
+        await this[GET_WEATHER](city);
+      } catch (e) {
+        this.list = this.list.filter(item => item !== city);
+        this.$bvToast.toast(e.response.statusText, {
+          title: `Error ${e.response.status}`,
+          variant: 'danger',
+          solid: true
+        })
+      }
     },
     addCity(city) {
       this.list.push(city);

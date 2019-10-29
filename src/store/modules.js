@@ -8,7 +8,7 @@ import {
     ADD_TO_CITY_LIST
 } from './constants';
 
-import { FAKER_URL } from '../../configs/configs'
+import { FAKER_URL, WEATHER_API_IMG } from '../../configs/configs'
 import { Vue } from 'vue';
 
 const state = {
@@ -36,12 +36,11 @@ const getters = {
                 return null;
             }
 
-            console.log(moment.unix(weather.sys.sunrise));
-
             return {
                 humidity: `${weather.main.humidity} %`,
                 pressure: `${weather.main.pressure} hpa`,
-                cloudiness: `${weather.weather[0].description}`,
+                cloudiness: `${weather.weather[0].main}`,
+                img: `${WEATHER_API_IMG}/${weather.weather[0].icon}.png`,
                 wind: {
                     speed: `${weather.wind.speed} m/s`,
                     degree: weather.wind.deg
@@ -57,12 +56,11 @@ const getters = {
 
 const actions = {
     GET_WEATHER: async ({ commit }, city) => {
-        console.log(city);
         try {
             const response = await axios.get(`${FAKER_URL}/weather/${city}`);
             commit(ADD_TO_WEATHER_LIST, { city, forecast: response.data });
-        } catch (e) {
-            //handle error
+        } catch(e) {
+            throw e;
         }
     },
 };
