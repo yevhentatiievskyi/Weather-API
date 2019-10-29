@@ -6,7 +6,7 @@ import BootstrapVue from 'bootstrap-vue';
 
 import store from './store';
 
-import * as moment from 'moment';
+import moment from 'moment';
 
 Vue.use(BootstrapVue);
 Vue.component('multiselect', Multiselect);

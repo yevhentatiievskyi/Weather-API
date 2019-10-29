@@ -1,5 +1,3 @@
-import * as moment from "../main";
-
 const axios = require('axios');
 
 import {
@@ -34,10 +32,11 @@ const getters = {
     [GET_WEATHER_BY_CITY]: state => {
         return city => {
             const weather = state.weather[city];
-            console.log(state.weather, city, weather);
             if (!weather) {
                 return null;
             }
+
+            console.log(moment.unix(weather.sys.sunrise));
 
             return {
                 humidity: `${weather.main.humidity} %`,
@@ -47,9 +46,9 @@ const getters = {
                     speed: `${weather.wind.speed} m/s`,
                     degree: weather.wind.deg
                 },
-                temperature: ((weather.main.temp - 32) / 1.8).toFixed(2),
-                sunrise: weather.sys.sunrise,/*moment.unix(weather.sys.sunrise).format('HH:mm A'),*/
-                sunset: weather.sys.sunset,/*moment.unix(weather.sys.sunset).format('HH:mm A'),*/
+                temp: Math.ceil(weather.main.temp - 272.15),
+                /*sunrise: moment.unix(weather.sys.sunrise).format('hh:mm A'),
+                sunset: moment.unix(weather.sys.sunset).format('hh:mm A'),*/
                 ...weather.coord
             }
         }
