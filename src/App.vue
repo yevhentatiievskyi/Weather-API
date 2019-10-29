@@ -18,10 +18,15 @@
           v-if="processing" />
     </div>
     <div class="row justify-content-around mt-4">
-      <widget v-for="city in list"
-          @unsubscribe="remove"
-          :key="city"
-          :city="city"/>
+      <div v-if="list.length">
+        <widget v-for="city in list"
+            @unsubscribe="remove"
+            :key="city"
+            :city="city"/>
+      </div>
+      <div v-else class="text-muted">
+        The list of subscriptions is empty
+      </div>
     </div>
   </div>
 </template>
