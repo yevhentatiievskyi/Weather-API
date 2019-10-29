@@ -1,14 +1,17 @@
 <template>
     <div v-if="statistics">
       <b-card
-        :title="city"
         img-src="https://picsum.photos/600/300/?image=25"
         img-alt="Image"
         img-top
         tag="article"
         style="max-width: 20rem;"
         class="mb-2">
-          <b-card-text class="mt-4">
+          <b-card-text>
+            <div class="d-flex justify-content-between mb-3">
+              <div class="text-primary h4">{{city}}</div>
+              <div class="font-weight-bold">{{statistics.temp}} &#8451; </div>
+            </div>
             <div class="d-flex justify-content-between">
               <div>Humidity</div>
               <div>{{statistics.humidity}}</div>
@@ -26,17 +29,7 @@
             <hr>
             <div class="d-flex justify-content-between">
               <div>Wind</div>
-              <div>{{statistics.wind.speed}}{{statistics.wind.degree}}</div>
-            </div>
-            <hr>
-            <div class="d-flex justify-content-between">
-              <div>Sunrise</div>
-              <div>{{statistics.sunrise}}</div>
-            </div>
-            <hr>
-            <div class="d-flex justify-content-between">
-              <div>Sunset</div>
-              <div>{{statistics.sunset}}</div>
+              <div>{{statistics.wind.speed}} (&nearr; {{statistics.wind.degree}})</div>
             </div>
             <hr>
             <div class="d-flex justify-content-between">
@@ -46,7 +39,7 @@
           </b-card-text>
 
           <div class="text-right mt-4">
-              <b-button variant="primary" @click="unsubscribe">
+              <b-button variant="danger" @click="unsubscribe">
                 Unsubscribe
               </b-button>
           </div>
