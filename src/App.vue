@@ -2,6 +2,7 @@
   <div id="app" class="container">
     <h1 class="text-center mt-4 mb-4 text-primary">Weather API</h1>
     <multiselect
+            class="multiselect"
             v-model="list"
             :multiple="true"
             :options="cities"
@@ -41,7 +42,8 @@ import {
   ADD_TO_WEATHER_LIST,
   ADD_TO_CITY_LIST,
   REMOVE_FROM_WEATHER_LIST,
-  GET_WEATHER
+  GET_WEATHER,
+  GET_CITIES
 } from './store/constants';
 
 export default {
@@ -55,6 +57,9 @@ export default {
   components: {
       Widget
   },
+  created () {
+    this[GET_CITIES]();
+  },
   computed: {
     ...mapState([
       'cities'
@@ -67,7 +72,8 @@ export default {
       REMOVE_FROM_WEATHER_LIST
     ]),
     ...mapActions([
-      GET_WEATHER
+      GET_WEATHER,
+      GET_CITIES
     ]),
     async select (city) {
       try {
@@ -96,3 +102,10 @@ export default {
   }
 }
 </script>
+
+<style>
+  .multiselect {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+</style>

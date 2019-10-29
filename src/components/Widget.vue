@@ -9,13 +9,13 @@
         class="mb-2 bg-muted">
           <b-card-text>
             <div class="d-flex justify-content-between mb-3">
-                <div class="bg-primary"><img :src="statistics.img"></div>
+                <div class="weather__img"><img :src="statistics.title.img"></div>
               <div class="text-primary h4">{{city}}</div>
-              <div class="h4">{{statistics.temp}} &#8451;</div>
+              <div class="h4" v-html="statistics.title.temp"></div>
             </div>
             <hr>
             <div class="d-flex justify-content-between mb-3"
-                 v-for="(item, key) in statistics"
+                 v-for="(item, key) in statistics.data"
                 :key="key">
               <div>{{ key | uppercased }}</div>
               <div v-html="item"></div>
@@ -34,7 +34,6 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
 import {
-  GET_CITIES,
   GET_WEATHER_BY_CITY
 } from '../store/constants';
 
@@ -61,9 +60,6 @@ export default {
       return this[GET_WEATHER_BY_CITY](this.city);
     }
   },
-  created () {
-    this[GET_CITIES]();
-  },
   methods: {
     unsubscribe () {
       this.$emit('unsubscribe', this.city);
@@ -71,3 +67,15 @@ export default {
   }
 }
 </script>
+
+<style>
+  .weather__img {
+    background-color: gainsboro;
+    border: 1px solid grey;
+    border-radius: 4px;
+    box-shadow: inset 0 0 5px 0 rgba(0,0,0,0.6);
+  }
+  .weather__img:hover {
+    filter: brightness(0.9);
+  }
+</style>

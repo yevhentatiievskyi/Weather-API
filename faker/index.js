@@ -30,5 +30,6 @@ async function getCities (request, response) {
 
 app.use('/v1/cities', getCities);
 app.use('/v1/weather/:city', getWeather);
+
 console.log(`Server started on port ${configs.PORT}`);
 app.listen(configs.PORT);

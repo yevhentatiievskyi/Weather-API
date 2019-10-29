@@ -34,15 +34,19 @@ const getters = {
             }
 
             return {
-                img: `${WEATHER_API_IMG}/${weather.weather[0].icon}.png`,
-                humidity: `${weather.main.humidity} %`,
-                pressure: `${weather.main.pressure} hpa`,
-                cloudiness: `${weather.weather[0].main}`,
-                wind: `${weather.wind.speed} m/s (&nearr; ${weather.wind.deg})`,
-                temp: Math.ceil(weather.main.temp - 272.15),
+                title: {
+                    img: `${WEATHER_API_IMG}/${weather.weather[0].icon}.png`,
+                    temp: `${Math.ceil(weather.main.temp - 272.15)} &#8451;`,
+                    ...weather.coord
+                },
+                data: {
+                    humidity: `${weather.main.humidity} %`,
+                    pressure: `${weather.main.pressure} hpa`,
+                    cloudiness: `${weather.weather[0].main}`,
+                    wind: `${weather.wind.speed} m/s (&nearr; ${weather.wind.deg})`
+                }
                 /*sunrise: moment.unix(weather.sys.sunrise).format('hh:mm A'),
                 sunset: moment.unix(weather.sys.sunset).format('hh:mm A'),*/
-                ...weather.coord
             }
         }
     }
