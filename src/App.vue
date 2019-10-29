@@ -33,7 +33,9 @@
 
 <script>
 import Widget from './components/Widget'
-import { mapState, mapActions, mapMutations } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
+
+const { mapState, mapActions, mapMutations } = createNamespacedHelpers('weather');
 
 import {
   ADD_TO_WEATHER_LIST,
@@ -54,32 +56,32 @@ export default {
       Widget
   },
   computed: {
-    ...mapState('weather', [
+    ...mapState([
       'cities'
     ])
   },
   methods: {
-    ...mapMutations('weather', [
+    ...mapMutations([
       ADD_TO_WEATHER_LIST,
       ADD_TO_CITY_LIST,
       REMOVE_FROM_WEATHER_LIST
     ]),
-    ...mapActions('weather', [
+    ...mapActions([
       GET_WEATHER
     ]),
     async select (city) {
       try {
         this.processing = true;
         await this[GET_WEATHER](city);
-        this.processing = false;
       } catch (e) {
         this.list = this.list.filter(item => item !== city);
-        this.processing = false;
         this.$bvToast.toast(e.response.statusText, {
           title: `Error ${e.response.status}`,
           variant: 'danger',
           solid: true
         })
+      } finally {
+        this.processing = false;
       }
     },
     addCity(city) {

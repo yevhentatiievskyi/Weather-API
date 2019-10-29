@@ -14,25 +14,11 @@
               <div class="h4">{{statistics.temp}} &#8451;</div>
             </div>
             <hr>
-            <div class="d-flex justify-content-between mb-3">
-              <div>Humidity</div>
-              <div>{{statistics.humidity}}</div>
-            </div>
-            <div class="d-flex justify-content-between mb-3">
-              <div>Pressure</div>
-              <div>{{statistics.pressure}}</div>
-            </div>
-            <div class="d-flex justify-content-between mb-3">
-              <div>Cloudiness</div>
-              <div>{{statistics.cloudiness}}</div>
-            </div>
-            <div class="d-flex justify-content-between mb-3">
-              <div>Wind</div>
-              <div>{{statistics.wind.speed}} (&nearr; {{statistics.wind.degree}})</div>
-            </div>
-            <div class="d-flex justify-content-between">
-              <div>Coordinates</div>
-              <div class="text-success">[{{statistics.lat}}, {{statistics.lon}}]</div>
+            <div class="d-flex justify-content-between mb-3"
+                 v-for="(item, key) in statistics"
+                :key="key">
+              <div>{{ key | uppercased }}</div>
+              <div v-html="item"></div>
             </div>
           </b-card-text>
 
@@ -46,10 +32,13 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
 import {
+  GET_CITIES,
   GET_WEATHER_BY_CITY
 } from '../store/constants';
+
+const { mapGetters, mapActions } = createNamespacedHelpers('weather');
 
 export default {
   name: 'Widget',
@@ -59,13 +48,21 @@ export default {
       type: String
     }
   },
+  filters: {
+    uppercased () {
+
+    }
+  },
   computed: {
-    ...mapGetters('weather', [
+    ...mapGetters([
       GET_WEATHER_BY_CITY
     ]),
     statistics () {
       return this[GET_WEATHER_BY_CITY](this.city);
     }
+  },
+  created () {
+    this[GET_CITIES]();
   },
   methods: {
     unsubscribe () {
