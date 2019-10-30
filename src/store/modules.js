@@ -43,17 +43,15 @@ const getters = {
                     humidity: `${weather.main.humidity} %`,
                     pressure: `${weather.main.pressure} hpa`,
                     cloudiness: `${weather.weather[0].main}`,
-                    wind: `${weather.wind.speed} m/s ${weather.wind.deg ? '(&nearr; '+weather.wind.deg+')' : ''}`
+                    wind: `${weather.wind.speed} m/s ${weather.wind.deg ? `(&nearr; ${+weather.wind.deg}` : ''}`
                 }
-                /*sunrise: moment.unix(weather.sys.sunrise).format('hh:mm A'),
-                sunset: moment.unix(weather.sys.sunset).format('hh:mm A'),*/
             }
         }
     }
 };
 
 const actions = {
-    GET_CITIES: async ({ commit }, city) => {
+    [GET_CITIES]: async ({ commit }) => {
         try {
             const response = await axios.get('cities');
             commit(SET_CITY_LIST, response.data);
@@ -61,7 +59,7 @@ const actions = {
             throw e;
         }
     },
-    GET_WEATHER: async ({ commit }, city) => {
+    [GET_WEATHER]: async ({ commit }, city) => {
         try {
             const response = await axios.get(`weather/${city}`);
             commit(ADD_TO_WEATHER_LIST, { city, forecast: response.data });

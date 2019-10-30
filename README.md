@@ -9,8 +9,7 @@
     ```
 2. Start faker service:
     ```bash
-    cd faker
-    node index.js
+    npm run api
     ```
 3. Start devServer (client):
     ```bash

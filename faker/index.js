@@ -2,8 +2,13 @@ const express = require('express');
 const axios = require('axios');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const configs = require('./configs');
 const app = express();
+
+const {
+  WEATHER_API_URL,
+  WEATHER_API_KEY,
+  PORT,
+} = process.env
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -13,9 +18,9 @@ async function getWeather (request, response) {
  try {
    const params = {
      q: request.params.city,
-     APPID: configs.WEATHER_API_KEY
+     APPID: WEATHER_API_KEY
    };
-   const weather = await axios.get(configs.WEATHER_API_URL, { params });
+   const weather = await axios.get(WEATHER_API_URL, { params });
    response.status(200).json(weather.data);
  }
  catch (e) {
@@ -31,5 +36,4 @@ async function getCities (request, response) {
 app.use('/v1/cities', getCities);
 app.use('/v1/weather/:city', getWeather);
 
-console.log(`Server started on port ${configs.PORT}`);
-app.listen(configs.PORT);
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
