@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from '../plugins/axios';
 
 import {
     ADD_TO_WEATHER_LIST,
@@ -10,7 +10,7 @@ import {
     SET_CITY_LIST,
 } from './constants';
 
-import { FAKER_URL, WEATHER_API_IMG } from '../../configs/configs'
+const { WEATHER_API_IMG } = process.env;
 import Vue from 'vue';
 
 const state = {
@@ -34,32 +34,34 @@ const getters = {
             }
 
             return {
-                img: `${WEATHER_API_IMG}/${weather.weather[0].icon}.png`,
-                humidity: `${weather.main.humidity} %`,
-                pressure: `${weather.main.pressure} hpa`,
-                cloudiness: `${weather.weather[0].main}`,
-                wind: `${weather.wind.speed} m/s (&nearr; ${weather.wind.deg})`,
-                temp: Math.ceil(weather.main.temp - 272.15),
-                /*sunrise: moment.unix(weather.sys.sunrise).format('hh:mm A'),
-                sunset: moment.unix(weather.sys.sunset).format('hh:mm A'),*/
-                ...weather.coord
+                title: {
+                    img: `${WEATHER_API_IMG}/${weather.weather[0].icon}.png`,
+                    temp: `${Math.ceil(weather.main.temp - 272.15)} &#8451;`,
+                    ...weather.coord
+                },
+                data: {
+                    humidity: `${weather.main.humidity} %`,
+                    pressure: `${weather.main.pressure} hpa`,
+                    cloudiness: `${weather.weather[0].main}`,
+                    wind: `${weather.wind.speed} m/s ${weather.wind.deg ? `(&nearr; ${+weather.wind.deg}` : ''}`
+                }
             }
         }
     }
 };
 
 const actions = {
-    GET_CITIES: async ({ commit }, city) => {
+    [GET_CITIES]: async ({ commit }) => {
         try {
-            const response = await axios.get(`${FAKER_URL}/cities`);
+            const response = await axios.get('cities');
             commit(SET_CITY_LIST, response.data);
         } catch(e) {
             throw e;
         }
     },
-    GET_WEATHER: async ({ commit }, city) => {
+    [GET_WEATHER]: async ({ commit }, city) => {
         try {
-            const response = await axios.get(`${FAKER_URL}/weather/${city}`);
+            const response = await axios.get(`weather/${city}`);
             commit(ADD_TO_WEATHER_LIST, { city, forecast: response.data });
         } catch(e) {
             throw e;

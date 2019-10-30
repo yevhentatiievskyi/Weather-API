@@ -1,0 +1,31 @@
+@import '~bootstrap/dist/css/bootstrap.css';
+@import '~bootstrap-vue/dist/bootstrap-vue.css';
+@import '~vue-multiselect/dist/vue-multiselect.min.css';
+@import 'variables';
+
+body {
+  font-family: $ff-open-sans;
+}
+
+.multiselect {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.weather__title {
+  background: $gradient-aqua-to-navi;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.weather__img {
+  background-color: $lightgrey;
+  border: 1px solid $grey;
+  border-radius: 4px;
+  box-shadow: inset 0 0 5px 0 $darkgrey;
+}
+.weather__img:hover {
+  filter: brightness(0.9);
+}
+
+.gm-style-cc {
+  visibility: hidden;
+}

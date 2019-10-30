@@ -1,29 +1,20 @@
-# weather-vue
+<h4>
+  <img src="https://github.com/yevhentatiievskyi/Weather-API/blob/master/src/assets/logo.png?raw=true" alt="drawing" width="25"/>
+  &nbsp;Weather API Installation Guide  
+</h4>
 
-## Project setup
-```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+1. Install node modules: 
+    ```bash
+    npm install
+    ```
+2. Start faker service:
+    ```bash
+    npm run api
+    ```
+3. Start devServer (client):
+    ```bash
+    npm run serve
+    ```
+Note: 
+- constant variables are set in the `configs.js` files of the `configs` and `faker` directories;
+- to request the weather information by chosen city the `Open Weather API` service was used (https://openweathermap.org/api).
