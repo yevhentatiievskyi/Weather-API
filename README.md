@@ -7,13 +7,9 @@
     ```bash
     npm install
     ```
-2. Start faker service:
+2. Start application:
     ```bash
-    npm run api
-    ```
-3. Start devServer (client):
-    ```bash
-    npm run serve
+    npm run weather
     ```
 Note: 
 - to request the weather information by chosen city the `Open Weather API` service was used (https://openweathermap.org/api).
