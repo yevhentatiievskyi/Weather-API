@@ -1,32 +1,31 @@
 <template>
     <div v-if="statistics">
-      <b-card
-        img-src="https://picsum.photos/600/300/?image=25"
-        img-alt="Image"
-        img-top
-        tag="article"
-        style="max-width: 20rem;"
-        class="mb-2 bg-muted">
-          <b-card-text>
-            <div class="d-flex justify-content-between mb-3">
-                <div class="weather__img"><img :src="statistics.title.img"></div>
-              <div class="text-primary h4">{{city}}</div>
-              <div class="h4" v-html="statistics.title.temp"></div>
-            </div>
-            <hr>
-            <div class="d-flex justify-content-between mb-3"
-                 v-for="(item, key) in statistics.data"
-                :key="key">
-              <div>{{ key | uppercased }}</div>
-              <div v-html="item"></div>
-            </div>
-          </b-card-text>
-
-          <div class="text-right mt-4">
-            <b-button variant="danger" @click="unsubscribe">
-              Unsubscribe
-            </b-button>
+      <b-card>
+        <b-card-text>
+          <GmapMap
+            :center="{lat:statistics.title.lat, lng:statistics.title.lon}"
+            :zoom="6"
+            map-type-id="terrain"
+            style="width: 300px; height: 200px" />
+          <div class="d-flex justify-content-between mb-3 mt-3">
+            <div class="weather__img"><img :src="statistics.title.img"></div>
+            <div class="text-primary h4">{{city}}</div>
+            <div class="h4" v-html="statistics.title.temp"></div>
           </div>
+          <hr>
+          <div class="d-flex justify-content-between mb-3"
+            v-for="(item, key) in statistics.data"
+            :key="key">
+            <div>{{ key | uppercased }}</div>
+            <div v-html="item"></div>
+          </div>
+        </b-card-text>
+
+        <div class="text-right mt-4">
+          <b-button variant="danger" @click="unsubscribe">
+            Unsubscribe
+          </b-button>
+        </div>
       </b-card>
     </div>
 </template>

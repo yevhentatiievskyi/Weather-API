@@ -8,6 +8,8 @@ import store from './store';
 import router from './plugins/router';
 import moment from 'moment';
 
+import './plugins/gmaps';
+
 Vue.use(BootstrapVue);
 Vue.component('multiselect', Multiselect);
 
