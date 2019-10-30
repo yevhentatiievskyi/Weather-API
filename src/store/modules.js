@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from '../plugins/axios';
 
 import {
     ADD_TO_WEATHER_LIST,
@@ -10,7 +10,7 @@ import {
     SET_CITY_LIST,
 } from './constants';
 
-import { FAKER_URL, WEATHER_API_IMG } from '../../configs/configs'
+import { WEATHER_API_IMG } from '../../configs/configs';
 import Vue from 'vue';
 
 const state = {
@@ -55,7 +55,7 @@ const getters = {
 const actions = {
     GET_CITIES: async ({ commit }, city) => {
         try {
-            const response = await axios.get(`${FAKER_URL}/cities`);
+            const response = await axios.get('cities');
             commit(SET_CITY_LIST, response.data);
         } catch(e) {
             throw e;
@@ -63,7 +63,7 @@ const actions = {
     },
     GET_WEATHER: async ({ commit }, city) => {
         try {
-            const response = await axios.get(`${FAKER_URL}/weather/${city}`);
+            const response = await axios.get(`weather/${city}`);
             commit(ADD_TO_WEATHER_LIST, { city, forecast: response.data });
         } catch(e) {
             throw e;

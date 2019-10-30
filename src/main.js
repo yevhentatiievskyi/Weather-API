@@ -5,7 +5,7 @@ import Multiselect from 'vue-multiselect';
 import BootstrapVue from 'bootstrap-vue';
 
 import store from './store';
-
+import router from './plugins/router';
 import moment from 'moment';
 
 Vue.use(BootstrapVue);
@@ -15,6 +15,7 @@ window.moment = moment;
 
 new Vue({
   store,
+  router,
   render: h => h(App),
 }).$mount('#app');
 

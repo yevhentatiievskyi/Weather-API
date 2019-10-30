@@ -35,7 +35,7 @@
 import { createNamespacedHelpers } from 'vuex';
 import {
   GET_WEATHER_BY_CITY
-} from '../store/constants';
+} from '../../store/constants';
 
 const { mapGetters, mapActions } = createNamespacedHelpers('weather');
 
