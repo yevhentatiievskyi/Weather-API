@@ -67,15 +67,3 @@ export default {
   }
 }
 </script>
-
-<style>
-  .weather__img {
-    background-color: gainsboro;
-    border: 1px solid grey;
-    border-radius: 4px;
-    box-shadow: inset 0 0 5px 0 rgba(0,0,0,0.6);
-  }
-  .weather__img:hover {
-    filter: brightness(0.9);
-  }
-</style>
