@@ -16,5 +16,4 @@
     npm run serve
     ```
 Note: 
-- constant variables are set in the `configs.js` files of the `configs` and `faker` directories;
 - to request the weather information by chosen city the `Open Weather API` service was used (https://openweathermap.org/api).

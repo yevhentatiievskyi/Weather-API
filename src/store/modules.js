@@ -43,7 +43,7 @@ const getters = {
                     humidity: `${weather.main.humidity} %`,
                     pressure: `${weather.main.pressure} hpa`,
                     cloudiness: `${weather.weather[0].main}`,
-                    wind: `${weather.wind.speed} m/s ${weather.wind.deg ? `(&nearr; ${+weather.wind.deg}` : ''}`
+                    wind: `${weather.wind.speed} m/s ${weather.wind.deg ? `(&nearr; ${+weather.wind.deg})` : ''}`
                 }
             }
         }
