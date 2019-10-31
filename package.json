@@ -7,7 +7,11 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "api": "node -r dotenv/config faker/index.js",
-    "weather": "npm run serve & npm run api"
+    "weather": "npm run serve & npm run api",
+
+    "roll-dice": "node theory/reader.js",
+    "test-1": "node theory/test-1.js",
+    "test-2": "node theory/test-2.js"
   },
   "dependencies": {
     "axios": "^0.19.0",

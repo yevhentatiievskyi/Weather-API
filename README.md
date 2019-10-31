@@ -13,3 +13,4 @@
     ```
 Note: 
 - to request the weather information by chosen city the `Open Weather API` service was used (https://openweathermap.org/api).
+- answers to questions, tests and RollDice method are placed in the `theory` directory

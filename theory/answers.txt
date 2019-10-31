@@ -1,0 +1,49 @@
+2a. Write int RollDice method which replicates die throw.
+----------------------------------------------------------
+I've checked the approaches, which were used for Math.random function. Until 4.9.40 version V8's choice of PRNG was MWC1616 (multiply with carry, combining two 16-bit parts). Then, it was replaced by xorshift128+.
+The implemented solution of the task is contained in the `roll-dice.js` file. It doesn't use bitwise operations: the idea is to calculate the sine based on the radian value, passed as a parameter. The value of the radian is incremented each iteration.
+The random value is the decimal part of the generated value, multiplied to 10000.
+
+File `reader.js` (`npm run roll-dice`) contains code, which runs the generator and writes the output to `sample.txt` file for the futher testing. Sample describes the behavior of the random variable.
+
+2b. Write 3 test cases for RollDice
+----------------------------------------------------------
+Actually, there are multiple libraries (TestU01, NIST, DIEHARD), that offer a collection of utilities for the empirical randomness testing of the RNGs.
+Implemented tests consider 3 aspects:
+- uniform distribution of frequencies of occurrence of each number in the sample: the probability of occurrence of each value (1, 2 ... 6) is 1/6;
+- the arithmetic average of the points scored for all the rolls of the cube is also a random variable, but for large N it tends to a very specific number - the mathematical expectation M. For the dices, M is calculated as sum of all possible values of random variable, divided on the volume of the sample: (1+2+3+4+5+6)/6 = 3.5. So, the expected calculated mathemetical expectation should be close to 3.5;
+- the intervals between repeats of values in the sample isn't a constant. As a result: sample doesn't contain groups of the repeated sequences.
+I didn't use `chai` and `mocha` for testing - just the primitive methods.
+
+The chosen volume of the sample, used for the investigation of the RollDice method, is 100000. The greater this value - the more accurate results.
+The first test (`npm run test-1`) returned the next frequency set:
+1 = 0.16609
+2 = 0.16679
+3 = 0.16736
+4 = 0.16619
+5 = 0.16613
+6 = 0.16744
+The mathemetical expectation, found as sum of frequences divided on 6, equals to 3.5.
+The second test (`npm run test-2`) finds the steps of repeat of each value, stores this steps to the array and compares the arrays of the interval in pairs (e.g 1 and 2, 2 and 3 and so on). The result represents boolean value of the fact, if values have a pattern in appearance (returns false) or not (returns true).
+
+The weak side of the implemented approach is static variable - `seed`. Generator creates the uniform distribution, the event of appearance of the value from the range [1; 6] in which is randomly, but the uniform distribution isn't a random sequence: new start of generator return the same sequence as the previous was. To resolve this problem the dynamic variable was added: Unix Timestamp.
+
+3. What is the difference between binary and text files?
+----------------------------------------------------------
+Text files contain the data as an encoded sequence of the Unicode code points: images, video, audio, archives.
+Binary - the collection of bytes: source code, configuration files, web standards.
+
+To detect binary files `diff` and `grep` utilities checks the first 1024 bytes. The file is textual, if these bytes don't equal to NULL. This approach is't reliable: UTF-16 and UTF-32 encoded text is recognized as 'binary'. The reason is Latin-1 code points are encoded with NULL bytes.
+Some files may contain BOM (byte order marks) or magic numbers at the beginning (one of teh tool, which defines the file type by the magic numbers is Unix `file`), as markers of the encoding type.
+
+In fact, both - text and binary files are the set of bytes, but the main difference - how this set is interpreted.
+
+Other distinctions:
+- the character with ASCII value 26 is considered as the end of the file in the text files. All input functions stop reading the characters, when this character is encountered.
+There is no such character, represented the end of the file, in the binary files;
+- line break is a combination of carriage return and linefeed - in the text files, linefeed - in binary files. As a result - binary format doesn't require conversion of the file content.
+
+Bonus question:
+----------------------------------------------------------
+Alice lives in the West part of London, Catherine - in the East.
+The fact, that Jack sees Alice more often, then Catherine, and that the time, chosen by Jack, is a random value, indicates, that the frequency or the line congestion of the East-West trains, is greater, then the frequency (in the terms of number of the transport units) of the West-East trains.
